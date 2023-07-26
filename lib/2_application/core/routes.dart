@@ -27,14 +27,20 @@ final routes = GoRouter(
                 child: const Text('Go to Start'),
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/home/task');
+              },
+              child: const Text('Go to Tasks'),
+            ),
             TextButton(
-               onPressed: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  } else {
-                    context.push('/home/start');
-                  }
-               },
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.push('/home/start');
+                }
+              },
               child: const Text('Go back'),
             ),
           ],
@@ -54,12 +60,52 @@ final routes = GoRouter(
                 },
                 child: const Text('Go to Settings'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  context.push('/home/task');
+                },
+                child: const Text('Go to Tasks'),
+              ),
               TextButton(
                 onPressed: () {
                   if (context.canPop()) {
                     context.pop();
                   } else {
                     context.push('/home/settings');
+                  }
+                },
+                child: const Text('Go back'),
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/home/task',
+      builder: (context, state) {
+        return Container(
+          color: Colors.yellowAccent,
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  context.push('/home/start');
+                },
+                child: const Text('Go to Start'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context.push('/home/settings');
+                },
+                child: const Text('Go to Settings'),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.push('/home/start');
                   }
                 },
                 child: const Text('Go back'),
