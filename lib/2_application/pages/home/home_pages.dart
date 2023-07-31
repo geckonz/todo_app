@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/2_application/pages/calendar/calendar_page.dart';
 import 'package:todo_app/2_application/pages/dashboard/dashboard_page.dart';
 import 'package:todo_app/2_application/pages/overview/overview_page.dart';
 import 'package:todo_app/2_application/pages/tasks/task_page.dart';
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
           secondaryBody: SlotLayout(config: <Breakpoint, SlotLayoutConfig>{
             Breakpoints.mediumAndUp: SlotLayout.from(
               key: const Key('secondary-body-medium'),
-              builder: AdaptiveScaffold.emptyBuilder,
+              builder: (_) => const CalendarPage(),
             )
           }),
         ),
