@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+//    final theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: AdaptiveLayout(
@@ -49,12 +49,12 @@ class _HomePageState extends State<HomePage> {
                   // The following 3 may be able to be removed as I suspect this
                   // will support Material 3 now, and is only needed while
                   // AdaptiveLayout doesn't support Material 3
-                  selectedLabelTextStyle:
-                      TextStyle(color: theme.colorScheme.onBackground),
-                  selectedIconTheme:
-                      IconThemeData(color: theme.colorScheme.onBackground),
-                  unselectedIconTheme: IconThemeData(
-                      color: theme.colorScheme.onBackground.withOpacity(0.5)),
+                  // selectedLabelTextStyle:
+                  //     TextStyle(color: theme.colorScheme.onBackground),
+                  // selectedIconTheme:
+                  //     IconThemeData(color: theme.colorScheme.onBackground),
+                  // unselectedIconTheme: IconThemeData(
+                  //     color: theme.colorScheme.onBackground.withOpacity(0.5)),
                   onDestinationSelected: (index) {
                     debugPrint('tap $index selected');
                     _tapOnNavigationDestination(context, index);
