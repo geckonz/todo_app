@@ -1,4 +1,4 @@
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 
 import 'package:todo_app/1_domain/entities/todo_collection.dart';
 import 'package:todo_app/1_domain/entities/todo_color.dart';
