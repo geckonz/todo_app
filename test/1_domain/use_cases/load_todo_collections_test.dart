@@ -41,6 +41,9 @@ void main() {
 
         expect(loadToDoCollectionUseCaseUnderTest(params),
             completion(equals(Right(list))));
+
+        verify(() => mockToDoRepository.readToDoCollections()).called(1);
+        verifyNoMoreInteractions(mockToDoRepository);
       });
     });
 
