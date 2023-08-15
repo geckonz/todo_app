@@ -25,11 +25,9 @@ void main() {
       await tester.pumpWidget(widgetUnderTest());
       await tester.pumpAndSettle();
 
-      final listViewFinder = find.byType(ListView);
-      final listTileFinder = find.byType(ListTile);
-
-      expect(listViewFinder, findsOneWidget);
-      expect(listTileFinder, findsOneWidget);
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(ListTile), findsOneWidget);
+      expect(find.text(toDoCollection.title), findsOneWidget);
     });
   });
 }

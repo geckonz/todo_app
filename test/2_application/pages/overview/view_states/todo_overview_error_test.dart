@@ -17,11 +17,8 @@ void main() {
       await tester.pumpWidget(widgetUnderTest());
       await tester.pumpAndSettle();
 
-      final cardFinder = find.byType(Card);
-      final textFinder = find.byType(Text);
-
-      expect(cardFinder, findsOneWidget);
-      expect(textFinder, findsOneWidget);
+      expect(find.byType(Card), findsOneWidget);
+      expect(find.text('ERROR, Please try again.'), findsOneWidget);
     });
   });
 }

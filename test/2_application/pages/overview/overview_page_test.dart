@@ -69,7 +69,6 @@ void main() {
 
         expect(find.byType(TodoOverviewLoading), findsNothing);
         expect(find.byType(ToDoOverviewLoaded), findsOneWidget);
-        expect(find.text('title'), findsOneWidget);
       });
 
       testWidgets('Error when the cubit emits ToDoOverviewCubitErrorState',
@@ -86,7 +85,6 @@ void main() {
         await widgetTester.pumpAndSettle();
 
         expect(find.byType(TodoOverviewError), findsOneWidget);
-        expect(find.text('ERROR, Please try again.'), findsOneWidget);
       });
     });
   });
