@@ -16,7 +16,10 @@ class LoadToDoCollections implements UseCase<List<ToDoCollection>, NoParams> {
     try{
       final loadedCollections = toDoRepository.readToDoCollections();
 
-      return loadedCollections.fold((left) => Left(left), (right) => Right(right));
+      return loadedCollections.fold(
+        (left) => Left(left),
+        (right) => Right(right)
+      );
     } on Exception catch (e) {
       return Left(ServerFailure(stackTrace: e.toString()));
     }
