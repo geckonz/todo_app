@@ -8,7 +8,7 @@ class LoadToDoEntryIdsForCollection
     implements UseCase<List<EntryId>, CollectionIdParam> {
   final ToDoRepository toDoRepository;
 
-  const LoadToDoEntryIdsForCollection(this.toDoRepository);
+  const LoadToDoEntryIdsForCollection({required this.toDoRepository});
 
   @override
   Future<Either<Failure, List<EntryId>>> call(CollectionIdParam params) async {
