@@ -16,7 +16,6 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +37,6 @@ class _CalendarPageState extends State<CalendarPage> {
           if (!isSameDay(_focusedDay, selectedDay)) {
             // Call `setState()` when updating the selected day
             setState(() {
-              _selectedDay = selectedDay;
               _focusedDay = focusedDay;
             });
           }
