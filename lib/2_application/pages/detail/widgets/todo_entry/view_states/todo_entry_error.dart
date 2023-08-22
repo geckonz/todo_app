@@ -5,8 +5,10 @@ class ToDoEntryError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Error loading ToDo Entry, please try again.'),
+    return const ListTile(
+      onTap: null,
+      leading: Icon(Icons.warning_rounded),
+      title: Text('Error loading entry, please try again.'),
     );
   }
 }
