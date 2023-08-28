@@ -61,7 +61,9 @@ class ToDoEntryWidget extends StatelessWidget {
           onChanged: (value) => context.read<ToDoEntryCubit>().update(),
         );
       } else {
-        return const ToDoEntryError();
+        return ToDoEntryError(
+          handleRetry: () => context.read<ToDoEntryCubit>().fetch(),
+        );
       }
     });
   }
