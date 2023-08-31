@@ -79,4 +79,12 @@ class ToDoRepositoryMock implements ToDoRepository {
     return Future.delayed(
         const Duration(milliseconds: 100), () => Right(updatedEntry));
   }
+
+  @override
+  Future<Either<Failure, bool>> createToDoCollection(ToDoCollection collection) {
+    toDoCollection.add(collection);
+
+    return Future.delayed(
+        const Duration(milliseconds: 100), () => const Right(true));
+  }
 }

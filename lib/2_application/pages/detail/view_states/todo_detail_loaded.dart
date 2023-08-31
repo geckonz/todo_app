@@ -17,11 +17,14 @@ class ToDoDetailLoaded extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: entryIds.length,
           itemBuilder: (context, index) => ToDoEntryProvider(
             collectionId: collectionId,
             entryId: entryIds[index],
+          ),
+          separatorBuilder: (context, index) => Divider(
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
         ),
       ),
