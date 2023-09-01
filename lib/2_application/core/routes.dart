@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/1_domain/entities/unique_id.dart';
 import 'package:todo_app/2_application/pages/create_todo_collection/create_todo_collection_page.dart';
+import 'package:todo_app/2_application/pages/create_todo_entry/create_todo_entry_page.dart';
 import 'package:todo_app/2_application/pages/dashboard/dashboard_page.dart';
 import 'package:todo_app/2_application/pages/detail/todo_detail_page.dart';
 import 'package:todo_app/2_application/pages/home/bloc/navigation_todo_cubit.dart';
@@ -68,6 +69,26 @@ final routes = GoRouter(
       ),
     ),
     GoRoute(
+      name: CreateToDoEntryPage.pageConfig.name,
+      path: '$_basePath/overview/${CreateToDoEntryPage.pageConfig.name}',
+      builder: (context, state) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Create new entry'),
+          leading: BackButton(onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.goNamed(
+                HomePage.pageConfig.name,
+                pathParameters: {'tab': OverviewPage.pageConfig.name},
+              );
+            }
+          }),
+        ),
+        body: SafeArea(child: CreateToDoEntryPage.pageConfig.child),
+      ),
+    ),
+    GoRoute(
       name: ToDoDetailPage.pageConfig.name,
       path: '$_basePath/overview/:collectionId',
       builder: (context, state) {
@@ -81,7 +102,7 @@ final routes = GoRouter(
           },
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('details'),
+              title: const Text('List entries'),
               leading: BackButton(onPressed: () {
                 if (context.canPop()) {
                   context.pop();

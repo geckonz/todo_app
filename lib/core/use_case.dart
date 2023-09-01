@@ -1,6 +1,7 @@
 import 'package:either_dart/either.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todo_app/1_domain/entities/todo_collection.dart';
+import 'package:todo_app/1_domain/entities/todo_entry.dart';
 import 'package:todo_app/1_domain/entities/unique_id.dart';
 
 import '../1_domain/failures/failure.dart';
@@ -17,36 +18,41 @@ class NoParams extends Params {
 }
 
 class ToDoEntryIdsParam extends Params {
+  final EntryId entryId;
+  final CollectionId collectionId;
+
   ToDoEntryIdsParam({
     required this.collectionId,
     required this.entryId,
   }) : super();
-
-  final EntryId entryId;
-  final CollectionId collectionId;
 
   @override
   List<Object> get props => [collectionId, entryId];
 }
 
 class CollectionIdParam extends Params {
-  CollectionIdParam({
-    required this.collectionId,
-  }) : super();
-
   final CollectionId collectionId;
+
+  CollectionIdParam({required this.collectionId}) : super();
 
   @override
   List<Object> get props => [collectionId];
 }
 
 class ToDoCollectionParams extends Params {
-  ToDoCollectionParams({
-    required this.collection,
-  }) : super();
-
   final ToDoCollection collection;
+
+  ToDoCollectionParams({required this.collection}) : super();
 
   @override
   List<Object> get props => [collection];
+}
+
+class ToDoEntryParams extends Params {
+  final ToDoEntry entry;
+
+  ToDoEntryParams({required this.entry}) : super();
+
+  @override
+  List<Object> get props => [entry];
 }
