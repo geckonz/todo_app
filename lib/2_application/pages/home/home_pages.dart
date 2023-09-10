@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                       .map((_) => AdaptiveScaffold.toRailDestination(_))
                       .toList(),
                   leading: IconButton(
+                    key: const Key('add-collection-button'),
                     onPressed: () {
                       context
                           .pushNamed(CreateToDoCollectionPage.pageConfig.name);
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
                     tooltip: 'Add Collection',
                   ),
                   trailing: IconButton(
+                    key: const Key('settings-button'),
                     onPressed: () =>
                         context.pushNamed(SettingsPage.pageConfig.name),
                     icon: Icon(SettingsPage.pageConfig.icon),

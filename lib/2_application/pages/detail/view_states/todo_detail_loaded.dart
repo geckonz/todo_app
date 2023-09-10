@@ -19,27 +19,29 @@ class ToDoDetailLoaded extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          SizedBox(
-            height: 50,
-            child: IconButton(
-              onPressed: () {
-                context.pushNamed(CreateToDoEntryPage.pageConfig.name);
-              },
-              icon: Icon(CreateToDoEntryPage.pageConfig.icon),
-              tooltip: 'Add ToDo Entry',
+        child: Stack(children: [
+          ListView.separated(
+            itemCount: entryIds.length,
+            itemBuilder: (context, index) => ToDoEntryProvider(
+              collectionId: collectionId,
+              entryId: entryIds[index],
+            ),
+            separatorBuilder: (context, index) => Divider(
+              color: Theme.of(context).colorScheme.onSecondary,
             ),
           ),
-          Divider(color: Theme.of(context).colorScheme.onSecondary),
-          Expanded(
-            child: ListView.separated(
-              itemCount: entryIds.length,
-              itemBuilder: (context, index) => ToDoEntryProvider(
-                collectionId: collectionId,
-                entryId: entryIds[index],
-              ),
-              separatorBuilder: (context, index) => Divider(
-                color: Theme.of(context).colorScheme.onSecondary,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                key: const Key('create_todo_entry_button'),
+                heroTag: CreateToDoEntryPage.pageConfig.name,
+                onPressed: () => context.pushNamed(
+                  CreateToDoEntryPage.pageConfig.name,
+                  extra: collectionId,
+                ),
+                child: Icon(CreateToDoEntryPage.pageConfig.icon),
               ),
             ),
           ),
