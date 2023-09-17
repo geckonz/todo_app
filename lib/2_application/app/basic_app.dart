@@ -25,14 +25,14 @@ class BasicApp extends StatelessWidget {
         theme: ThemeData.from(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepOrange,
+            seedColor: Colors.purple,
             brightness: Brightness.light,
           ),
         ),
         darkTheme: ThemeData.from(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepOrange,
+            seedColor: Colors.purple,
             brightness: Brightness.dark,
           ),
         ),

@@ -10,23 +10,37 @@ import 'package:todo_app/1_domain/failures/failure.dart';
 import '../../1_domain/repositories/todo_repository.dart';
 
 class ToDoRepositoryMock implements ToDoRepository {
-  final toDoEntries = List<ToDoEntry>.generate(
-    100,
-    (index) => ToDoEntry(
-      description: 'description $index',
-      isDone: index % 2 == 0,
-      id: EntryId.fromUniqueString(index.toString()),
-    ),
-  );
+  late List<ToDoCollection> toDoCollection;
+  late List<ToDoEntry> toDoEntries;
+  final toDoStore = <CollectionId, List<EntryId>>{};
 
-  final toDoCollection = List<ToDoCollection>.generate(
-    10,
-    (index) => ToDoCollection(
-      id: CollectionId.fromUniqueString(index.toString()),
-      title: 'title $index',
-      color: ToDoColor(colorIndex: index % ToDoColor.predefinedColors.length),
-    ),
-  );
+  ToDoRepositoryMock() {
+    toDoCollection = List<ToDoCollection>.generate(
+      10,
+      (index) => ToDoCollection(
+        id: CollectionId.fromUniqueString(index.toString()),
+        title: 'title $index',
+        color: ToDoColor(colorIndex: index % ToDoColor.predefinedColors.length),
+      ),
+    );
+
+    toDoEntries = List<ToDoEntry>.generate(
+      100,
+      (index) => ToDoEntry(
+        description: 'description $index',
+        isDone: index % 2 == 0,
+        id: EntryId.fromUniqueString(index.toString()),
+      ),
+    );
+
+    for (var i = 0; i < toDoCollection.length; i++) {
+      final startIndex = i * 10;
+      int endIndex = startIndex + 9;
+      final entryIds =
+          toDoEntries.sublist(startIndex, endIndex).map((e) => e.id).toList();
+      toDoStore[toDoCollection[i].id] = entryIds;
+    }
+  }
 
   @override
   Future<Either<Failure, List<ToDoCollection>>> readToDoCollections() {
@@ -54,13 +68,7 @@ class ToDoRepositoryMock implements ToDoRepository {
   Future<Either<Failure, List<EntryId>>> readToDoEntryIds(
       CollectionId collectionId) {
     try {
-      final startIndex = int.parse(collectionId.value) * 10;
-      int endIndex = startIndex + 10;
-      if (toDoEntries.length <= endIndex) {
-        endIndex = toDoEntries.length - 1;
-      }
-      final entryIds =
-          toDoEntries.sublist(startIndex, endIndex).map((e) => e.id).toList();
+      final entryIds = toDoStore[collectionId] ?? const <EntryId>[];
       return Future.delayed(
         const Duration(milliseconds: 300),
         () => Right(entryIds),
@@ -87,14 +95,19 @@ class ToDoRepositoryMock implements ToDoRepository {
   Future<Either<Failure, bool>> createToDoCollection(
       ToDoCollection collection) {
     toDoCollection.add(collection);
+    toDoStore[collection.id] = <EntryId>[];
 
     return Future.delayed(
         const Duration(milliseconds: 100), () => const Right(true));
   }
 
   @override
-  Future<Either<Failure, bool>> createToDoEntry(ToDoEntry entry) {
+  Future<Either<Failure, bool>> createToDoEntry(
+    CollectionId collectionId,
+    ToDoEntry entry,
+  ) {
     toDoEntries.add(entry);
+    toDoStore[collectionId]!.add(entry.id);
 
     return Future.delayed(
         const Duration(milliseconds: 250), () => const Right(true));

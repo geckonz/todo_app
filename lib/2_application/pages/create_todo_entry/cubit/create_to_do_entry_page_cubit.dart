@@ -35,6 +35,7 @@ class CreateToDoEntryPageCubit extends Cubit<CreateToDoEntryPageState> {
       entry: ToDoEntry.empty().copyWith(
         description: state.description?.value,
       ),
+      collectionId: collectionId,
     ));
   }
 }
