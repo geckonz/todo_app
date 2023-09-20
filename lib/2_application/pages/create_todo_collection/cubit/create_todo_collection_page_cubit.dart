@@ -24,7 +24,7 @@ class CreateToDoCollectionPageCubit
 
   Future<void> submit() async {
     final parsedColourIndex = int.tryParse(state.colour ?? '') ?? 0;
-    await createToDoCollection(ToDoCollectionParams(
+    createToDoCollection(ToDoCollectionParams(
       collection: ToDoCollection.empty().copyWith(
         title: state.title,
         color: ToDoColor(colorIndex: parsedColourIndex),

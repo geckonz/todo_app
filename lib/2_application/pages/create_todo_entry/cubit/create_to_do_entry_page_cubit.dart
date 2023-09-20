@@ -31,7 +31,7 @@ class CreateToDoEntryPageCubit extends Cubit<CreateToDoEntryPageState> {
   }
 
   Future<void> submit() async {
-    await createToDoEntry(ToDoEntryParams(
+    createToDoEntry(ToDoEntryParams(
       entry: ToDoEntry.empty().copyWith(
         description: state.description?.value,
       ),
