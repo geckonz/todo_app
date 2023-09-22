@@ -52,7 +52,7 @@ final routes = GoRouter(
       name: CreateToDoCollectionPage.pageConfig.name,
       path: '$_basePath/overview/${CreateToDoCollectionPage.pageConfig.name}',
       builder: (context, state) {
-        final extra = state.extra as Function;
+        final extra = state.extra as ToDoCollectionAddedCallback;
         return Scaffold(
           appBar: AppBar(
             title: const Text('Create new ToDo list'),

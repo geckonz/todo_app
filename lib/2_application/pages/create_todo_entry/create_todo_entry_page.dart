@@ -8,6 +8,8 @@ import 'package:todo_app/2_application/core/form_value.dart';
 import 'package:todo_app/2_application/core/page_config.dart';
 import 'package:todo_app/2_application/pages/create_todo_entry/cubit/create_to_do_entry_page_cubit.dart';
 
+typedef ToDoEntryItemAddedCallback = void Function();
+
 class CreateToDoEntryPageProvider extends StatelessWidget {
   const CreateToDoEntryPageProvider({
     required this.collectionId,
@@ -16,7 +18,7 @@ class CreateToDoEntryPageProvider extends StatelessWidget {
   });
 
   final CollectionId collectionId;
-  final Function onEntryCreatedCallback;
+  final ToDoEntryItemAddedCallback onEntryCreatedCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class CreateToDoEntryPage extends StatefulWidget {
     child: Placeholder(),
   );
 
-  final Function onEntryCreatedCallback;
+  final ToDoEntryItemAddedCallback onEntryCreatedCallback;
 
   @override
   State<CreateToDoEntryPage> createState() => _CreateToDoEntryPageState();
@@ -114,5 +116,5 @@ class CreateToDoEntryPageExtra {
   });
 
   final CollectionId collectionId;
-  final Function toDoEntryItemAddedCallback;
+  final ToDoEntryItemAddedCallback toDoEntryItemAddedCallback;
 }

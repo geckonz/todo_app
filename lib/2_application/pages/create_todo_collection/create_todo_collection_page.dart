@@ -7,12 +7,14 @@ import 'package:todo_app/1_domain/use_cases/create_todo_collection.dart';
 import 'package:todo_app/2_application/core/page_config.dart';
 import 'package:todo_app/2_application/pages/create_todo_collection/cubit/create_todo_collection_page_cubit.dart';
 
+typedef ToDoCollectionAddedCallback = void Function();
+
 class CreateToDoCollectionPageProvider extends StatelessWidget {
   const CreateToDoCollectionPageProvider({
     required this.onCollectionCreatedCallback,
     super.key,});
 
-  final Function onCollectionCreatedCallback;
+  final ToDoCollectionAddedCallback onCollectionCreatedCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class CreateToDoCollectionPage extends StatefulWidget {
     super.key,
   });
 
-  final Function onCollectionCreatedCallback;
+  final ToDoCollectionAddedCallback onCollectionCreatedCallback;
 
   static const pageConfig = PageConfig(
     icon: Icons.add_task_rounded,
