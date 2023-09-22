@@ -24,17 +24,21 @@ class BasicApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: ThemeData.from(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.purple,
-            brightness: Brightness.light,
-          ),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal),
+//          colorScheme: const ColorScheme.light(),
+          // colorScheme: ColorScheme.fromSeed(
+          //   seedColor: Colors.purple,
+          //   brightness: Brightness.light,
+          // ),
         ),
         darkTheme: ThemeData.from(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.purple,
-            brightness: Brightness.dark,
-          ),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal),
+//          colorScheme: const ColorScheme.dark(),
+          // colorScheme: ColorScheme.fromSeed(
+          //   seedColor: Colors.purple,
+          //   brightness: Brightness.dark,
+          // ),
         ),
         routerConfig: routes,
       ),

@@ -6,6 +6,7 @@ import 'package:todo_app/1_domain/entities/todo_collection.dart';
 import 'package:todo_app/2_application/pages/create_todo_collection/create_todo_collection_page.dart';
 import 'package:todo_app/2_application/pages/detail/todo_detail_page.dart';
 import 'package:todo_app/2_application/pages/home/bloc/navigation_todo_cubit.dart';
+import 'package:todo_app/2_application/pages/overview/bloc/todo_overview_cubit.dart';
 
 class ToDoOverviewLoaded extends StatelessWidget {
   const ToDoOverviewLoaded({
@@ -59,8 +60,10 @@ class ToDoOverviewLoaded extends StatelessWidget {
           child: FloatingActionButton(
             key: const Key('create_todo_collection_button'),
             heroTag: CreateToDoCollectionPage.pageConfig.name,
-            onPressed: () =>
-                context.pushNamed(CreateToDoCollectionPage.pageConfig.name),
+            onPressed: () => context.pushNamed(
+              CreateToDoCollectionPage.pageConfig.name,
+              extra: context.read<ToDoOverviewCubit>().readToDoCollections,
+            ),
             child: Icon(CreateToDoCollectionPage.pageConfig.icon),
           ),
         ),

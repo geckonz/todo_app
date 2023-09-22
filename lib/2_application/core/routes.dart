@@ -51,22 +51,29 @@ final routes = GoRouter(
     GoRoute(
       name: CreateToDoCollectionPage.pageConfig.name,
       path: '$_basePath/overview/${CreateToDoCollectionPage.pageConfig.name}',
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Create new ToDo list'),
-          leading: BackButton(onPressed: () {
-            if (context.canPop()) {
-              context.pop();
-            } else {
-              context.goNamed(
-                HomePage.pageConfig.name,
-                pathParameters: {'tab': OverviewPage.pageConfig.name},
-              );
-            }
-          }),
-        ),
-        body: SafeArea(child: CreateToDoCollectionPage.pageConfig.child),
-      ),
+      builder: (context, state) {
+        final extra = state.extra as Function;
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Create new ToDo list'),
+            leading: BackButton(onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.goNamed(
+                  HomePage.pageConfig.name,
+                  pathParameters: {'tab': OverviewPage.pageConfig.name},
+                );
+              }
+            }),
+          ),
+          body: SafeArea(
+            child: CreateToDoCollectionPageProvider(
+              onCollectionCreatedCallback: extra,
+            ),
+          ),
+        );
+      },
     ),
     GoRoute(
       name: CreateToDoEntryPage.pageConfig.name,

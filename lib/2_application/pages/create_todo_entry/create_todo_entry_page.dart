@@ -89,6 +89,7 @@ class _CreateToDoEntryPageState extends State<CreateToDoEntryPage> {
               height: 16,
             ),
             ElevatedButton(
+              key: const Key('save_button'),
               onPressed: () {
                 final isValid = _formKey.currentState?.validate();
                 if (isValid == true) {
