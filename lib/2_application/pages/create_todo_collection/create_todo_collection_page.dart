@@ -7,14 +7,8 @@ import 'package:todo_app/1_domain/use_cases/create_todo_collection.dart';
 import 'package:todo_app/2_application/core/page_config.dart';
 import 'package:todo_app/2_application/pages/create_todo_collection/cubit/create_todo_collection_page_cubit.dart';
 
-typedef ToDoCollectionAddedCallback = void Function();
-
 class CreateToDoCollectionPageProvider extends StatelessWidget {
-  const CreateToDoCollectionPageProvider({
-    required this.onCollectionCreatedCallback,
-    super.key,});
-
-  final ToDoCollectionAddedCallback onCollectionCreatedCallback;
+  const CreateToDoCollectionPageProvider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +18,18 @@ class CreateToDoCollectionPageProvider extends StatelessWidget {
           toDoRepository: RepositoryProvider.of<ToDoRepository>(context),
         ),
       ),
-      child: CreateToDoCollectionPage(onCollectionCreatedCallback: onCollectionCreatedCallback,),
+      child: const CreateToDoCollectionPage(),
     );
   }
 }
 
 class CreateToDoCollectionPage extends StatefulWidget {
-  const CreateToDoCollectionPage({
-    required this.onCollectionCreatedCallback,
-    super.key,
-  });
-
-  final ToDoCollectionAddedCallback onCollectionCreatedCallback;
+  const CreateToDoCollectionPage({super.key});
 
   static const pageConfig = PageConfig(
     icon: Icons.add_task_rounded,
     name: 'create_todo_collection',
-    child: Placeholder(),
+    child: CreateToDoCollectionPageProvider(),
   );
 
   @override
@@ -98,10 +87,10 @@ class _CreateToDoColelctionPageState extends State<CreateToDoCollectionPage> {
                 onPressed: () {
                   final isValid = _formKey.currentState?.validate();
                   if (isValid == true) {
-                    context.read<CreateToDoCollectionPageCubit>().submit();
-                    widget.onCollectionCreatedCallback();
                     // Can be used to cause page reload and not need callback
-                    context.pop(true);
+                    context.read<CreateToDoCollectionPageCubit>().submit().then(
+                          (_) => context.pop(true),
+                        );
                   }
                 },
                 child: const Text('Save Collection'),

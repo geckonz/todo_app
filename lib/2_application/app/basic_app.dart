@@ -18,7 +18,7 @@ class BasicApp extends StatelessWidget {
       child: MaterialApp.router(
         title: 'Todo App',
         localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
+          ...GlobalMaterialLocalizations.delegates,
           GlobalWidgetsLocalizations.delegate,
         ],
         themeMode: ThemeMode.system,

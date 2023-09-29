@@ -11,6 +11,23 @@ import 'package:todo_app/2_application/pages/overview/overview_page.dart';
 import 'package:todo_app/2_application/pages/settings/settings_page.dart';
 import 'package:todo_app/2_application/pages/tasks/task_page.dart';
 
+// class HomePageProvider extends StatelessWidget {
+//   const HomePageProvider({
+//     required this.tab,
+//     super.key,
+//   });
+
+//   final String tab;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider<NavigationToDoCubit>(
+//       create: (context) => NavigationToDoCubit(),
+//       child: HomePage(tab: tab,),
+//     );
+//   }
+// }
+
 class HomePage extends StatefulWidget {
   HomePage({
     super.key,
@@ -63,16 +80,17 @@ class _HomePageState extends State<HomePage> {
                       .toList(),
                   leading: IconButton(
                     key: const Key('add-collection-button'),
-                    onPressed: () async {
-                      final result = await context.pushNamed(
+                    onPressed: () {
+                      context
+                          .pushNamed(
                         CreateToDoCollectionPage.pageConfig.name,
-                        extra: (_) {
-                          
-                        },);
-                      if (result == true) {
-                        //refresh data
-                        debugPrint('An item was created successfully');
-                      }
+                      )
+                          .then((value) {
+                        if (value == true) {
+                          //refresh data
+                          debugPrint('An item was created successfully');
+                        }
+                      });
                     },
                     icon: Icon(CreateToDoCollectionPage.pageConfig.icon),
                     tooltip: 'Add Collection',

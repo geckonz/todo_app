@@ -51,38 +51,30 @@ final routes = GoRouter(
     GoRoute(
       name: CreateToDoCollectionPage.pageConfig.name,
       path: '$_basePath/overview/${CreateToDoCollectionPage.pageConfig.name}',
-      builder: (context, state) {
-        if (state.extra == null) {
-          throw Exception('extra is null');
-        }
-        final extra = state.extra as ToDoCollectionAddedCallback;
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Create new ToDo list'),
-            leading: BackButton(onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              } else {
-                context.goNamed(
-                  HomePage.pageConfig.name,
-                  pathParameters: {'tab': OverviewPage.pageConfig.name},
-                );
-              }
-            }),
-          ),
-          body: SafeArea(
-            child: CreateToDoCollectionPageProvider(
-              onCollectionCreatedCallback: extra,
-            ),
-          ),
-        );
-      },
+      builder: (context, state) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Create new ToDo list'),
+          leading: BackButton(onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.goNamed(
+                HomePage.pageConfig.name,
+                pathParameters: {'tab': OverviewPage.pageConfig.name},
+              );
+            }
+          }),
+        ),
+        body: SafeArea(
+          child: CreateToDoCollectionPage.pageConfig.child,
+        ),
+      ),
     ),
     GoRoute(
       name: CreateToDoEntryPage.pageConfig.name,
       path: '$_basePath/overview/${CreateToDoEntryPage.pageConfig.name}',
       builder: (context, state) {
-        final extra = state.extra as CreateToDoEntryPageExtra;
+        final castedExtra = state.extra as CreateToDoEntryPageExtra;
         return Scaffold(
           appBar: AppBar(
             title: const Text('Create new entry'),
@@ -99,8 +91,8 @@ final routes = GoRouter(
           ),
           body: SafeArea(
               child: CreateToDoEntryPageProvider(
-            collectionId: extra.collectionId,
-            onEntryCreatedCallback: extra.toDoEntryItemAddedCallback,
+            collectionId: castedExtra.collectionId,
+            onEntryCreatedCallback: castedExtra.toDoEntryItemAddedCallback,
           )),
         );
       },

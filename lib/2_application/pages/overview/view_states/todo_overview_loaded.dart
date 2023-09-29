@@ -19,57 +19,63 @@ class ToDoOverviewLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shouldDisplayAddItemButton = Breakpoints.small.isActive(context);
-    return Stack(children: [
-      ListView.builder(
-        itemCount: toDoCollection.length,
-        itemBuilder: (context, index) {
-          final item = toDoCollection[index];
-          final colorScheme = Theme.of(context).colorScheme;
-          return BlocBuilder<NavigationToDoCubit, NavigationToDoCubitState>(
-            buildWhen: (previous, current) =>
-                previous.selectedCollectionId != current.selectedCollectionId,
-            builder: (context, state) {
-              return ListTile(
-                tileColor: colorScheme.surface,
-                selectedTileColor: colorScheme.surfaceVariant,
-                iconColor: item.color.color,
-                selectedColor: item.color.color,
-                selected: state.selectedCollectionId == item.id,
-                onTap: () {
-                  context
-                      .read<NavigationToDoCubit>()
-                      .selectedToDoCollectionChanged(collectionId: item.id);
+    return Stack(
+      children: [
+        ListView.builder(
+          itemCount: toDoCollection.length,
+          itemBuilder: (context, index) {
+            final item = toDoCollection[index];
+            final colorScheme = Theme.of(context).colorScheme;
 
-                  if (Breakpoints.small.isActive(context)) {
-                    context.pushNamed(
-                      ToDoDetailPage.pageConfig.name,
-                      pathParameters: {'collectionId': item.id.value},
-                    );
+            return BlocBuilder<NavigationToDoCubit, NavigationToDoCubitState>(
+              buildWhen: (previous, current) =>
+                  previous.selectedCollectionId != current.selectedCollectionId,
+              builder: (context, state) {
+                return ListTile(
+                  tileColor: colorScheme.surface,
+                  selectedTileColor: colorScheme.surfaceVariant,
+                  iconColor: item.color.color,
+                  selectedColor: item.color.color,
+                  selected: state.selectedCollectionId == item.id,
+                  onTap: () {
+                    context
+                        .read<NavigationToDoCubit>()
+                        .selectedToDoCollectionChanged(collectionId: item.id);
+
+                    if (Breakpoints.small.isActive(context)) {
+                      context.pushNamed(
+                        ToDoDetailPage.pageConfig.name,
+                        pathParameters: {'collectionId': item.id.value},
+                      );
+                    }
+                  },
+                  leading: const Icon(Icons.circle),
+                  title: Text(item.title),
+                );
+              },
+            );
+          },
+        ),
+        if (shouldDisplayAddItemButton)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                key: const Key('create_todo_collection_button'),
+                heroTag: CreateToDoCollectionPage.pageConfig.name,
+                onPressed: () => context
+                    .pushNamed(CreateToDoCollectionPage.pageConfig.name)
+                    .then((value) {
+                  if (value == true) {
+                    context.read<ToDoOverviewCubit>().readToDoCollections();
                   }
-                },
-                leading: const Icon(Icons.circle),
-                title: Text(item.title),
-              );
-            },
-          );
-        },
-      ),
-      if (shouldDisplayAddItemButton)
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              key: const Key('create_todo_collection_button'),
-              heroTag: CreateToDoCollectionPage.pageConfig.name,
-              onPressed: () => context.pushNamed(
-                CreateToDoCollectionPage.pageConfig.name,
-                extra: context.read<ToDoOverviewCubit>().readToDoCollections,
+                }),
+                child: Icon(CreateToDoCollectionPage.pageConfig.icon),
               ),
-              child: Icon(CreateToDoCollectionPage.pageConfig.icon),
             ),
           ),
-        ),
-    ]);
+      ],
+    );
   }
 }
