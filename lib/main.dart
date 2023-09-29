@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:args/args.dart';
-import 'package:todo_app/0_data/repositories/todo_repository_memory.dart';
+import 'package:todo_app/0_data/data_sources/local/memory_todo_local_data_source.dart';
+import 'package:todo_app/0_data/repositories/todo_repository_local.dart';
 
 import 'package:todo_app/0_data/repositories/todo_repository_mock.dart';
 import 'package:todo_app/1_domain/repositories/todo_repository.dart';
@@ -21,7 +22,8 @@ void main(List<String> arguments) {
       if (mock) {
         return ToDoRepositoryMock();
       } else {
-        return ToDoRespositoryMemory();
+        return ToDoRepositoryLocal(
+            localDataSource: MemoryToDoLocalDataSource());
       }
     },
     child: const BasicApp(),

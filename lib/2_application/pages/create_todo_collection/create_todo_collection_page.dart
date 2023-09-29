@@ -100,7 +100,8 @@ class _CreateToDoColelctionPageState extends State<CreateToDoCollectionPage> {
                   if (isValid == true) {
                     context.read<CreateToDoCollectionPageCubit>().submit();
                     widget.onCollectionCreatedCallback();
-                    context.pop();
+                    // Can be used to cause page reload and not need callback
+                    context.pop(true);
                   }
                 },
                 child: const Text('Save Collection'),

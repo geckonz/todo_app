@@ -52,6 +52,9 @@ final routes = GoRouter(
       name: CreateToDoCollectionPage.pageConfig.name,
       path: '$_basePath/overview/${CreateToDoCollectionPage.pageConfig.name}',
       builder: (context, state) {
+        if (state.extra == null) {
+          throw Exception('extra is null');
+        }
         final extra = state.extra as ToDoCollectionAddedCallback;
         return Scaffold(
           appBar: AppBar(

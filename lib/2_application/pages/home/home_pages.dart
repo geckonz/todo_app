@@ -53,15 +53,6 @@ class _HomePageState extends State<HomePage> {
               Breakpoints.mediumAndUp: SlotLayout.from(
                 key: const Key('primary-navigation-medium'),
                 builder: (context) => AdaptiveScaffold.standardNavigationRail(
-                  // The following 3 may be able to be removed as I suspect this
-                  // will support Material 3 now, and is only needed while
-                  // AdaptiveLayout doesn't support Material 3
-                  // selectedLabelTextStyle:
-                  //     TextStyle(color: theme.colorScheme.onBackground),
-                  // selectedIconTheme:
-                  //     IconThemeData(color: theme.colorScheme.onBackground),
-                  // unselectedIconTheme: IconThemeData(
-                  //     color: theme.colorScheme.onBackground.withOpacity(0.5)),
                   onDestinationSelected: (index) {
                     debugPrint('tap $index selected');
                     _tapOnNavigationDestination(context, index);
@@ -72,9 +63,16 @@ class _HomePageState extends State<HomePage> {
                       .toList(),
                   leading: IconButton(
                     key: const Key('add-collection-button'),
-                    onPressed: () {
-                      context
-                          .pushNamed(CreateToDoCollectionPage.pageConfig.name);
+                    onPressed: () async {
+                      final result = await context.pushNamed(
+                        CreateToDoCollectionPage.pageConfig.name,
+                        extra: (_) {
+                          
+                        },);
+                      if (result == true) {
+                        //refresh data
+                        debugPrint('An item was created successfully');
+                      }
                     },
                     icon: Icon(CreateToDoCollectionPage.pageConfig.icon),
                     tooltip: 'Add Collection',
