@@ -42,8 +42,10 @@ class ToDoDetailLoaded extends StatelessWidget {
                 onPressed: () => context.pushNamed(
                   CreateToDoEntryPage.pageConfig.name,
                   extra: CreateToDoEntryPageExtra(
-                      collectionId: collectionId,
-                      toDoEntryItemAddedCallback: context.read<ToDoDetailCubit>().fetch,),
+                    collectionId: collectionId,
+                    toDoEntryItemAddedCallback:
+                        context.read<ToDoDetailCubit>().fetch,
+                  ),
                 ),
                 child: Icon(CreateToDoEntryPage.pageConfig.icon),
               ),
