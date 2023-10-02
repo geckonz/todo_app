@@ -23,8 +23,9 @@ class CreateToDoCollectionPageCubit
   }
 
   Future<void> submit() async {
+    //TODO: this is marked async but there was no await - casued the failed refresh after save problem
     final parsedColourIndex = int.tryParse(state.colour ?? '') ?? 0;
-    createToDoCollection(ToDoCollectionParams(
+    await createToDoCollection(ToDoCollectionParams(
       collection: ToDoCollection.empty().copyWith(
         title: state.title,
         color: ToDoColor(colorIndex: parsedColourIndex),

@@ -39,14 +39,16 @@ class ToDoDetailLoaded extends StatelessWidget {
               child: FloatingActionButton(
                 key: const Key('create_todo_entry_button'),
                 heroTag: CreateToDoEntryPage.pageConfig.name,
-                onPressed: () => context.pushNamed(
+                onPressed: () {
+                  context.pushNamed(
                   CreateToDoEntryPage.pageConfig.name,
                   extra: CreateToDoEntryPageExtra(
                     collectionId: collectionId,
                     toDoEntryItemAddedCallback:
                         context.read<ToDoDetailCubit>().fetch,
                   ),
-                ),
+                );
+                },
                 child: Icon(CreateToDoEntryPage.pageConfig.icon),
               ),
             ),

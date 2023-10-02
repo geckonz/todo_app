@@ -31,7 +31,8 @@ class CreateToDoEntryPageCubit extends Cubit<CreateToDoEntryPageState> {
   }
 
   Future<void> submit() async {
-    createToDoEntry(ToDoEntryParams(
+    //TODO: was not await previously and this casued the refresh after save to be in the wrond order
+    await createToDoEntry(ToDoEntryParams(
       entry: ToDoEntry.empty().copyWith(
         description: state.description?.value,
       ),

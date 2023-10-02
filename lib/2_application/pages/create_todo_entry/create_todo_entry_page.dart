@@ -95,9 +95,9 @@ class _CreateToDoEntryPageState extends State<CreateToDoEntryPage> {
               onPressed: () {
                 final isValid = _formKey.currentState?.validate();
                 if (isValid == true) {
-                  context.read<CreateToDoEntryPageCubit>().submit();
-                  widget.onEntryCreatedCallback();
-                  context.pop();
+                  context.read<CreateToDoEntryPageCubit>().submit()
+                  .then((_) => widget.onEntryCreatedCallback())
+                  .then((_) => context.pop());                  
                 }
               },
               child: const Text('Save Entry'),
